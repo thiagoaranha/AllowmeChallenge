@@ -1,0 +1,87 @@
+services:
+  allowme-postgres:
+    container_name: allowme-postgres
+    environment:
+      POSTGRES_DB: challenge-db
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: allowme
+    image: postgres:12.5-alpine
+    logging:
+      options:
+        max-file: "3"
+        max-size: 10m
+    networks:
+      allowme_challenge_default: null
+    ports:
+    - mode: ingress
+      target: 5432
+      published: 5432
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: volume
+      source: postgres-data
+      target: /var/lib/postgresql/data
+      volume: {}
+    - type: bind
+      source: C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\sql\init.sql
+      target: /docker-entrypoint-initdb.d/init.sql
+      bind:
+        create_host_path: true
+  allowmechallenge.recurring:
+    build:
+      context: C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge
+      dockerfile: AllowmeChallenge.Recurring/Dockerfile
+    depends_on:
+      allowme-postgres:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: allowmechallengerecurring
+    networks:
+      allowme_challenge_default: null
+  allowmechallenge.webapi:
+    build:
+      context: C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge
+      dockerfile: AllowmeChallenge.WebApi/Dockerfile
+    depends_on:
+      allowme-postgres:
+        condition: service_started
+    environment:
+      ALLOWME_POSTGRES_DATABASE: challenge-db
+      ALLOWME_POSTGRES_HOST: allowme-postgres
+      ALLOWME_POSTGRES_PASSWORD: password
+      ALLOWME_POSTGRES_PORT: "5432"
+      ALLOWME_POSTGRES_USERNAME: allowme
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: allowmechallengewebapi
+    networks:
+      allowme_challenge_default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\thiag\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\thiag\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  allowme_challenge_default:
+    name: dockercompose12570806618469230128_allowme_challenge_default
+volumes:
+  postgres-data:
+    name: dockercompose12570806618469230128_postgres-data
+    driver: local

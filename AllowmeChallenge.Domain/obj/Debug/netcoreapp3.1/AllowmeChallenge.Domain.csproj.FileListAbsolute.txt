@@ -1,0 +1,9 @@
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\bin\Debug\netcoreapp3.1\AllowmeChallenge.Domain.deps.json
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\bin\Debug\netcoreapp3.1\AllowmeChallenge.Domain.dll
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\bin\Debug\netcoreapp3.1\AllowmeChallenge.Domain.pdb
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.csprojAssemblyReference.cache
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.AssemblyInfoInputs.cache
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.AssemblyInfo.cs
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.csproj.CoreCompileInputs.cache
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.dll
+C:\Users\thiag\OneDrive\Documentos\Projetos\AllowmeChallenge\AllowmeChallenge.Domain\obj\Debug\netcoreapp3.1\AllowmeChallenge.Domain.pdb

@@ -1,0 +1,61 @@
+version: '3.4'
+
+services:
+  allowmechallenge.webapi:
+    image: ${DOCKER_REGISTRY-}allowmechallengewebapi
+    build:
+      context: .
+      dockerfile: AllowmeChallenge.WebApi/Dockerfile
+    depends_on:
+    - allowme-postgres
+    ports:
+      - 80
+      - 443
+    environment:      
+      - ALLOWME_POSTGRES_HOST=allowme-postgres
+      - ALLOWME_POSTGRES_PORT=5432
+      - ALLOWME_POSTGRES_DATABASE=challenge-db
+      - ALLOWME_POSTGRES_USERNAME=allowme
+      - ALLOWME_POSTGRES_PASSWORD=password
+    networks:
+      - allowme_challenge_default
+
+  allowmechallenge.recurring:
+    image: ${DOCKER_REGISTRY-}allowmechallengerecurring
+    build:
+      context: .
+      dockerfile: AllowmeChallenge.Recurring/Dockerfile
+    depends_on:
+        - allowme-postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - allowme_challenge_default
+
+  allowme-postgres:
+    image: postgres:12.5-alpine
+    restart: always
+    container_name: allowme-postgres
+    environment:
+      - POSTGRES_DB=challenge-db
+      - POSTGRES_USER=allowme
+      - POSTGRES_PASSWORD=password
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - allowme_challenge_default
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  allowme_challenge_default:
+    external: false

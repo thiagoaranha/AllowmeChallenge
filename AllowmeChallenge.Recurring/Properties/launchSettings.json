@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AllowmeChallenge.Recurring": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
